@@ -1,0 +1,63 @@
+﻿<Window x:Name="FindWindow" x:Class="Black_List.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:local="clr-namespace:Black_List"
+        mc:Ignorable="d"
+        Title="World Travelers Black List" Height="360" Width="530" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" KeyUp="Window_KeyUp" MinWidth="530" MinHeight="300" SizeChanged="Window_SizeChanged" Closed="Window_Closed" StateChanged="Window_StateChanged" Closing="Window_Closing" Activated="FindWindow_Activated">
+    <Window.Resources>
+        
+    </Window.Resources>
+    <Grid>
+        <Label Content="Поиск по чёрному списку" HorizontalAlignment="Center" Margin="0,27,0,0" VerticalAlignment="Top" FontSize="18" Foreground="#FFED691E"/>
+        <Grid Width="270" Height="25" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,66,0,0">
+            <TextBox x:Name="FindBox" HorizontalAlignment="Center" Height="23" Margin="0" TextWrapping="Wrap" VerticalAlignment="Top" Width="205" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" KeyUp="FindBox_KeyUp" TextChanged="FindBox_TextChanged" IsEnabled="False" Foreground="#FFED691E" PreviewTextInput="FindBox_PreviewTextInput" SelectionBrush="#FFED691E"/>
+            <Image x:Name="SearchButton" HorizontalAlignment="Right" Height="25" Margin="0" VerticalAlignment="Top" Width="25" Source="Images/search.png" Cursor="Hand" IsEnabled="False" MouseMove="SearchButton_MouseMove" MouseLeave="SearchButton_MouseLeave" ToolTip="Поиск" MouseUp="SearchButton_MouseUp"/>
+            <Image x:Name="ClearButton" HorizontalAlignment="Left" Height="25" Margin="0" VerticalAlignment="Top" Width="25" Source="Images/clear_not_enabled.png" Cursor="Hand" MouseMove="ClearButton_MouseMove" ToolTip="Очистить все" IsEnabled="False" MouseLeave="ClearButton_MouseLeave" MouseUp="ClearButton_MouseUp"/>
+        </Grid>
+        <Label x:Name="InfoLabel" Content="Введите данные для поиска" HorizontalAlignment="Center" Margin="0,96,0,0" VerticalAlignment="Top" Foreground="Gray"/>
+        <Image x:Name="SettingsButton" HorizontalAlignment="Right" Height="25" Margin="0,10,10,0" VerticalAlignment="Top" Width="25" Source="Images/settings.png" Cursor="Hand" MouseMove="SettingsButton_MouseMove" MouseLeave="SettingsButton_MouseLeave" ToolTip="Настройки" MouseUp="SettingsButton_MouseUp"/>
+        <Image x:Name="addButton" HorizontalAlignment="Left" Height="25" Margin="10,10,0,0" VerticalAlignment="Top" Width="25" Source="Images/add.png" Cursor="Hand" MouseDown="AddButton_MouseDown" MouseMove="addButton_MouseMove" MouseLeave="addButton_MouseLeave" ToolTip="Добавить"/>
+        <Label x:Name="CountLabel" Content="" HorizontalAlignment="Center" Margin="0,4,0,10" VerticalAlignment="Bottom" Foreground="Gray"/>
+        <TextBlock x:Name="modeBlock" TextDecorations="Underline" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="Поиск по ИИН" VerticalAlignment="Bottom" Foreground="#FFED691E" Cursor="Hand" MouseLeftButtonUp="TextBlock_MouseLeftButtonUp">
+            <TextBlock.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="NAMEmode" Header="Поиск по имени" IsChecked="True" Click="NAMEmode_Click"/>
+                    <MenuItem x:Name="IINmode" Header="Поиск по ИИН" Click="IINmode_Click"/>
+                </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
+        <ListView x:Name="FindView" Margin="10,127,10,41" Visibility="Hidden">
+            <ListView.View>
+                <GridView>
+                    <GridView.Columns>
+                        <GridViewColumn Header="ФИО" DisplayMemberBinding="{Binding Path=HumanName}"></GridViewColumn>
+                        <GridViewColumn Header="Дата рождения" DisplayMemberBinding="{Binding Path=DateOfBorn}" ></GridViewColumn>
+                        <GridViewColumn Header="ИИН" DisplayMemberBinding="{Binding Path=IIN}"></GridViewColumn>
+                        <GridViewColumn Header="Примечание" DisplayMemberBinding="{Binding Path=Note}"></GridViewColumn>
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <tb:TaskbarIcon x:Name="tbi"
+
+  IconSource="/Images/black_list.ico">
+
+            <!-- Set a simple context menu  -->
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="AddItemContext" Header="Добавить" Click="AddItemContext_Click" />
+                    <MenuItem x:Name="OpenEditorContext" Header="Редактор" Click="OpenEditorContext_Click" />
+                    <MenuItem x:Name="OpenSettingsContext" Header="Настройки" Click="OpenSettingsContext_Click" />
+                    <Separator></Separator>
+                    <MenuItem x:Name="ExitContext" Header="Выход" Click="ExitContext_Click" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+
+        </tb:TaskbarIcon>
+        <Image x:Name="EditButton" HorizontalAlignment="Right" Height="25" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="25" Source="Images/edit_not_enabled.png" Cursor="Hand" ToolTip="Редактор" MouseEnter="EditButton_MouseEnter" MouseLeave="EditButton_MouseLeave" MouseUp="EditButton_MouseUp"/>
+    </Grid>
+    
+</Window>

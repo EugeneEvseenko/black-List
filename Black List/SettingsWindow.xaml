@@ -1,0 +1,25 @@
+﻿<Window x:Class="Black_List.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Black_List"
+        mc:Ignorable="d"
+        Title="Настройки" Height="153.794" Width="335.862" WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Button x:Name="SaveSettings" Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" Height="30" Click="SaveSettings_Click" Cursor="Hand"/>
+        <CheckBox x:Name="AutorunCheckbox" Content="Автозапуск (Рекомендуется)" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ToolTip="Автоматический запуск программы при старте системы" Foreground="#FFED691E"/>
+        <CheckBox x:Name="HideOnStartCheckbox" Content="Сворачивать при запуске" HorizontalAlignment="Left" Margin="10,30,0,0" VerticalAlignment="Top" ToolTip="При запуске программы она автоматически будет свёрнута в трей" Foreground="#FFED691E"/>
+        <CheckBox x:Name="HideOnClosingCheckbox" Content="Сворачивать при закрытии окна (Рекомендуется)" HorizontalAlignment="Left" Margin="10,50,0,0" VerticalAlignment="Top" ToolTip="При закрытии окна оно будет свёрнуто в трей, иначе приложение завершит свою работу" Foreground="#FFED691E"/>
+        <TextBlock x:Name="backupBlock" TextDecorations="Underline" HorizontalAlignment="Left" Margin="10,0,0,10" TextWrapping="Wrap" Text="Резервные копии..." VerticalAlignment="Bottom" Foreground="#FFED691E" Cursor="Hand" MouseLeftButtonUp="backupBlock_MouseLeftButtonUp">
+            <TextBlock.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="OpenDir" Header="Открыть папку с резервными копиями" Click="OpenDir_Click"/>
+                    <MenuItem x:Name="CreateDB" Header="Создать резервную копию" Click="CreateDB_Click"/>
+                    <MenuItem x:Name="RemoveAll" Header="Удалить все резерные копии" Click="RemoveAll_Click"/>
+                    <MenuItem x:Name="RestoreDase" Header="Восстановить базу данных..." Click="RestoreDase_Click"/>
+                </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
+    </Grid>
+</Window>

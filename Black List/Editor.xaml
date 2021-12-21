@@ -1,0 +1,104 @@
+﻿<Window x:Class="Black_List.Editor"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Black_List"
+        mc:Ignorable="d"
+        Title="Редактор чёрного списка" Height="500" Width="800" Loaded="Window_Loaded" WindowStartupLocation="CenterScreen" MinWidth="800" MinHeight="500">
+    <Grid>
+        <ListBox x:Name="ListBoxItems" Margin="10,10,10,100" ScrollViewer.CanContentScroll="False">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid Height="80" Width="Auto">
+                        <Grid>
+                            <StackPanel VerticalAlignment="Top" Orientation="Horizontal">
+                                <TextBlock Text="{Binding Path=ID, StringFormat=[{0}]}" HorizontalAlignment="Left" VerticalAlignment="Top" TextTrimming="WordEllipsis" FontSize="14" Foreground="#FFBF612C" Margin="0,0,5,0"/>
+                                <TextBlock Text="{Binding Path=HumanName}" HorizontalAlignment="Left" VerticalAlignment="Top" TextTrimming="WordEllipsis" FontSize="14" Foreground="#FFED691E"/>
+                            </StackPanel>
+                            <TextBlock Text="{Binding Path=DateOfBorn}" HorizontalAlignment="Left" VerticalAlignment="Top" TextTrimming="WordEllipsis" Margin="0,20,5,0"/>
+                            <TextBlock Text="{Binding Path=IIN}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,40,0,0" Width="Auto"/>
+                            <TextBlock Text="{Binding Path=Note}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="12" Margin="0,60,0,0"/>
+                        </Grid>
+
+                    </Grid>
+
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+            <ListBox.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="EditMenuItem" Header="Редактировать" Click="EditMenuItem_Click"/>
+                    <MenuItem x:Name="DeleteMenuItem" Header="Удалить" Click="DeleteMenuItem_Click"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
+        <TextBlock x:Name="SortBlock" TextDecorations="Underline" HorizontalAlignment="Left" Margin="40,0,0,10" TextWrapping="Wrap" Text="Сортировка по Имени" VerticalAlignment="Bottom" Foreground="#FFED691E" Cursor="Hand" MouseLeftButtonUp="SortBlock_MouseLeftButtonUp">
+            <TextBlock.ContextMenu>
+                <ContextMenu>
+                    <MenuItem x:Name="NAMEsort" Header="Сортировать по имени" IsChecked="True" Click="NAMEsort_Click"/>
+                    <MenuItem x:Name="IINsort" Header="Сортировать по ИИН" Click="IINsort_Click"/>
+                    <MenuItem x:Name="INDEXsort" Header="Сортировать по индексу" Click="INDEXsort_Click"/>
+                </ContextMenu>
+            </TextBlock.ContextMenu>
+        </TextBlock>
+
+        <TextBlock x:Name="SortAscending" HorizontalAlignment="Left" Height="16" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="16" Cursor="Hand" MouseUp="SortAscending_MouseUp" ToolTip="Сортировать по возрастанию">
+            <Canvas Width="16" Height="16" >
+                <Path Canvas.Left="0" Canvas.Top="0" Width="16" Height="16" Stretch="Fill"
+              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBlock}}"
+              Data="M10,11V13H18V11H10M10,5V7H14V5H10M10,17V19H22V17H10M6,7H8.5L5,3.5L1.5,7H4V20H6V7Z">
+                </Path>
+            </Canvas>
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FFEC9F75" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Foreground" Value="#FFED691F" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#FFBDBDBD" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBlock x:Name="SortDescending" HorizontalAlignment="Left" Height="16" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="16" Cursor="Hand" MouseUp="SortDescending_MouseUp" Visibility="Hidden" ToolTip="Сортировать по убыванию">
+            <Canvas Width="16" Height="16" >
+                <Path Canvas.Left="0" Canvas.Top="0" Width="16" Height="16" Stretch="Fill"
+              Fill="{Binding Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=TextBlock}}"
+              Data="M10,13V11H18V13H10M10,19V17H14V19H10M10,7V5H22V7H10M6,17H8.5L5,20.5L1.5,17H4V4H6V17Z">
+                </Path>
+            </Canvas>
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter Property="Foreground" Value="#FFEC9F75" />
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter Property="Foreground" Value="#FFED691F" />
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Foreground" Value="#FFBDBDBD" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+        <TextBox x:Name="NameTextbox" HorizontalAlignment="Left" Height="25" Margin="10,0,0,50" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="202" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFED691E" SelectionBrush="#FFED691E" IsEnabled="False" TextChanged="NameTextbox_TextChanged"/>
+        <Label Content="ФИО" HorizontalAlignment="Left" Margin="10,0,0,74" VerticalAlignment="Bottom" Foreground="#FFED691E"/>
+        <DatePicker x:Name="DateBox" HorizontalAlignment="Left" Height="25" Margin="217,0,0,50" VerticalAlignment="Bottom" Width="150" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFED691E" IsEnabled="False"/>
+        <Label Content="Дата рождения" HorizontalAlignment="Left" Margin="217,0,0,74" VerticalAlignment="Bottom" Foreground="#FFED691E"/>
+        <TextBox x:Name="IINBox" HorizontalAlignment="Left" Height="25" Margin="372,0,0,50" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="135" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFED691E" SelectionBrush="#FFED691E" IsEnabled="False" PreviewTextInput="IINBox_PreviewTextInput" TextChanged="IINBox_TextChanged"/>
+        <Label Content="ИИН" HorizontalAlignment="Left" Margin="372,0,0,74" VerticalAlignment="Bottom" Foreground="#FFED691E"/>
+        <TextBox x:Name="NoteBox" HorizontalAlignment="Left" Height="25" Margin="512,0,0,50" TextWrapping="Wrap" VerticalAlignment="Bottom" Width="260" VerticalContentAlignment="Center" HorizontalContentAlignment="Center" Foreground="#FFED691E" SelectionBrush="#FFED691E" IsEnabled="False"/>
+        <Label Content="Примечание" HorizontalAlignment="Left" Margin="512,0,0,74" VerticalAlignment="Bottom" Foreground="#FFED691E"/>
+        <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="75" IsEnabled="False" Click="SaveButton_Click" Cursor="Hand"/>
+        <Button x:Name="CancelButton" Content="Отмена" HorizontalAlignment="Right" Margin="0,0,90,10" VerticalAlignment="Bottom" Width="75" IsEnabled="False" Click="CancelButton_Click" Cursor="Hand"/>
+        <Label x:Name="InfoLabel" Content="" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Bottom" Foreground="Gray"/>
+        <Button x:Name="AddItemButton" Content="Добавить" HorizontalAlignment="Right" Margin="0,0,170,10" VerticalAlignment="Bottom" Width="75" Click="AddItemButton_Click" Cursor="Hand"/>
+    </Grid>
+</Window>
